@@ -1,7 +1,15 @@
+'use client'
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 
 export default function NavBar() {
+  const jwtToken = localStorage.getItem('jwtToken');
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken'); 
+    window.location.href = "/"; 
+  };
+
   return (
     <Navbar className="border-b">
       <NavbarBrand>
@@ -15,7 +23,7 @@ export default function NavBar() {
         </NavbarItem>
         <NavbarItem isActive>
           <Link href="#" aria-current="page">
-          Features
+            Features
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -25,14 +33,24 @@ export default function NavBar() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="/auth/login">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="/auth/register" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
+        {jwtToken ? (
+          <NavbarItem>
+            <Button color="error" variant="flat" onClick={handleLogout}>
+              Logout
+            </Button>
+          </NavbarItem>
+        ) : (
+          <>
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/auth/login">Login</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button color="primary" href="/auth/register" variant="flat">
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
     </Navbar>
   );

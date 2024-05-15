@@ -28,6 +28,7 @@ export default function App() {
     axios.post('http://localhost:5000/api/login', requestdata).then(response => {
         const jwtToken = response.data.jwt_token
         localStorage.setItem('jwtToken', jwtToken)
+        window.location.href = "/";
     })
 
 

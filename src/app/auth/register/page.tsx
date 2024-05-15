@@ -31,6 +31,7 @@ export default function App() {
         const jwtToken = response.data.jwt_token;
         setJwtToken(jwtToken);
         localStorage.setItem('jwtToken', jwtToken);
+        window.location.href = "/";
       })
       .catch(error => {
         console.error("Error:", error);
