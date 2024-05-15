@@ -12,12 +12,15 @@
     "@nextui-org/react": "^2.3.6",
     "axios": "^1.6.8",
     "framer-motion": "^11.2.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-pro-sidebar": "^1.1.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

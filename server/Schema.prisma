@@ -1,0 +1,24 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:3307/server"
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  recursive_type_depth = 5
+}
+
+
+model USER{
+    id    Int     @id @default(autoincrement())
+    email String  @unique
+    password String
+    uuid String @unique
+    isadmin Boolean @default(false)
+    jwt_token String @unique @db.VarChar(500)
+}
+
+model authorized_uuids{
+    id Int @id @default(autoincrement())
+    uuid String @unique
+}

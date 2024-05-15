@@ -1,9 +1,9 @@
 import React from 'react'
+import SideNav from '../Components/SideNav'
 
 function page() {
   return (
-    <div>page</div>
-  )
+<SideNav/>  )
 }
 
 export default page
