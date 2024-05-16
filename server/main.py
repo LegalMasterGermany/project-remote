@@ -126,8 +126,6 @@ async def checkforjwt():
     return jsonify({"success": "jwt token exists"}), 200
 
 
-import os
-from flask import request, jsonify
 
 @app.route('/api/screenshot', methods=['POST'])
 def receive_screenshot():
@@ -146,7 +144,7 @@ def receive_screenshot():
         uuid_folder = os.path.join(SCREENSHOT_FOLDER, uuid)
         os.makedirs(uuid_folder, exist_ok=True)
         
-        screenshots_folder = os.path.join(uuid_folder, 'screenshots')
+        screenshots_folder = os.path.join(uuid_folder, 'Screenshots')
         os.makedirs(screenshots_folder, exist_ok=True)
         
         image_path = os.path.join(screenshots_folder, 'screenshot.png')
@@ -156,6 +154,9 @@ def receive_screenshot():
         return jsonify({'success': True}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+    
+
 
 
 

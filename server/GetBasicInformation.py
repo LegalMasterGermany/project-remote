@@ -2,7 +2,7 @@ import platform
 import os
 import netifaces
 
-def GetBasicInformation():
+def GetBasicInformation(uuid):
     windows_info = {}
     ip_addresses = {}
     mac_addresses = {}
@@ -23,6 +23,7 @@ def GetBasicInformation():
     windows_info['Computer Name'] = os.environ['COMPUTERNAME']
     windows_info['IP Adresses'] = ip_addresses
     windows_info['Mac Adresses'] = mac_addresses
+    windows_info['uuid'] = uuid
     
     return windows_info
 
