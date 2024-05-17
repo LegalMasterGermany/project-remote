@@ -1,6 +1,8 @@
 import platform
 import os
 import netifaces
+import requests
+import json
 
 def GetBasicInformation(uuid):
     windows_info = {}
@@ -21,11 +23,14 @@ def GetBasicInformation(uuid):
 
     windows_info['Operation System'] = platform.system()
     windows_info['Computer Name'] = os.environ['COMPUTERNAME']
-    windows_info['IP Adresses'] = ip_addresses
-    windows_info['Mac Adresses'] = mac_addresses
+    windows_info['IP Adresses'] = json.dumps(ip_addresses)
+    windows_info['Mac Adresses'] = json.dumps(mac_addresses)
     windows_info['uuid'] = uuid
     
     return windows_info
 
-basicinformation = GetBasicInformation()
-print("Windows Info:", basicinformation)
+basicinformation = GetBasicInformation("312cfe03-869a-45db-91e0-84bbdfde2260")
+api_url = "http://localhost:5000/api/getbasicinformation"
+response_api = requests.post(api_url,  json=basicinformation)
+
+
