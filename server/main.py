@@ -188,10 +188,8 @@ def getbasicinformation():
         basicinformation_folder = os.path.join(uuid_folder, 'BasicInformation')
         os.makedirs(basicinformation_folder, exist_ok=True)
 
-        # Pfad zur Datei "Data.json"
         data_file_path = os.path.join(basicinformation_folder, 'Data.json')
 
-        # Daten in die Datei schreiben
         with open(data_file_path, 'w') as file:
             json.dump(basicinformation, file)
 
