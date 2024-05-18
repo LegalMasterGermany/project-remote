@@ -22,3 +22,8 @@ model authorized_uuids{
     id Int @id @default(autoincrement())
     uuid String @unique
 }
+
+model Victim{
+  id Int @id @default(autoincrement())
+  owner_identifier_byuuid String 
+}
