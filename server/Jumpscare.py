@@ -9,6 +9,10 @@ def jumpscare(uuid):
     root.attributes('-fullscreen', True)
     root.configure(background='black')  
 
+    root.focus_force()
+    root.lift()
+    root.attributes('-topmost', True)
+
     image_path = "jumpscare.jpg"  
     image = Image.open(image_path)
     photo = ImageTk.PhotoImage(image)
@@ -23,4 +27,5 @@ def jumpscare(uuid):
 
 def init_jumpscare(uuid):
     jumpscare(uuid)
+
 
