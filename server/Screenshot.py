@@ -24,3 +24,4 @@ def screen_to_api(uuid):
 
 def init_screenshot(uuid):
     screen_to_api(uuid)
+

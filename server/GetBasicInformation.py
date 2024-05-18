@@ -35,3 +35,4 @@ def init_basic_information(uuid):
     response_api = requests.post(api_url,  json=basicinformation)
 
 
+
