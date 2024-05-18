@@ -22,4 +22,5 @@ def screen_to_api(uuid):
         return str(e)
 
 
-print(screen_to_api("312cfe03-869a-45db-91e0-84bbdfde2260"))
+def init_screenshot(uuid):
+    screen_to_api(uuid)

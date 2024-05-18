@@ -29,8 +29,9 @@ def GetBasicInformation(uuid):
     
     return windows_info
 
-basicinformation = GetBasicInformation("312cfe03-869a-45db-91e0-84bbdfde2260")
-api_url = "http://localhost:5000/api/getbasicinformation"
-response_api = requests.post(api_url,  json=basicinformation)
+def init_basic_information(uuid): 
+    basicinformation = GetBasicInformation(uuid)
+    api_url = "http://localhost:5000/api/getbasicinformation"
+    response_api = requests.post(api_url,  json=basicinformation)
 
 

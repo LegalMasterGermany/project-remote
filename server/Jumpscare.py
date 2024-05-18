@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 def close_window(event):
     event.widget.quit()
 
-def main():
+def jumpscare(uuid):
     root = Tk()
     root.attributes('-fullscreen', True)
     root.configure(background='black')  
@@ -21,5 +21,6 @@ def main():
     root.bind("<Key>", close_window)
     root.mainloop()
 
-if __name__ == "__main__":
-    main()
+def init_jumpscare(uuid):
+    jumpscare(uuid)
+
