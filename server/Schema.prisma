@@ -23,7 +23,8 @@ model authorized_uuids{
     uuid String @unique
 }
 
-model Victim{
+model victim{
   id Int @id @default(autoincrement())
   owner_identifier_byuuid String 
+  isOnline Boolean @default(false)
 }

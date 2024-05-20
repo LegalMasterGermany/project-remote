@@ -68,22 +68,31 @@ async def authorize_uuid():
     data = request.json
     email = data.get('email')
     password = data.get('password')
-    uuid = data.get('uuid')
+    uuid_by_request = data.get('uuid_by_request')
+    request_to_verify_uuid = data.get('request_to_verify_uuid')
 
-    if email is None or uuid is None or password is None:
+    if not email or not uuid_by_request or not password:
         return jsonify({"error": "Email, user_id, and secret are required in the request."}), 400
     
-    user = await Prisma.user.find_unique(
-        where={
-            uuid: uuid
-        }
-    )
+    prisma = Prisma()
+    await prisma.connect()
 
-    if user.isadmin:
-        access_token = create_access_token(identity=user)
-        return jsonify({"message": "access granted", "access_token": access_token})
-    else:
-        return jsonify({"message": "access denied"})
+    try:
+        user = await prisma.user.find_unique(
+            where={'uuid': uuid_by_request}
+        )
+
+        if user and user.isadmin:
+            authorizeduuid = await prisma.authorized_uuids.create(data={
+                'uuid': request_to_verify_uuid
+            })
+            return jsonify({"message": "access granted", "authorizeduuid": authorizeduuid})
+        else:
+            return jsonify({"message": "access denied"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        await prisma.disconnect()
 
 @app.route('/api/login', methods=['POST'])
 async def login():
